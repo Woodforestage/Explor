@@ -1,9 +1,14 @@
+# Playwright公式のDebianベースイメージを使う
 FROM mcr.microsoft.com/playwright:focal
 
-# python環境セットアップなど必要ならここに追加
-COPY . /app
+# 作業ディレクトリ作成＆移動
 WORKDIR /app
 
-RUN pip install -r requirements.txt
+# 必要ファイルをコピー
+COPY . .
 
+# Pythonの依存パッケージをインストール
+RUN pip install --no-cache-dir -r requirements.txt
+
+# コンテナ起動時に実行するコマンド
 CMD ["python", "app.py"]
